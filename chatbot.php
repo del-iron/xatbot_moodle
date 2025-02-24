@@ -32,16 +32,16 @@ $user_name = $_SESSION["user_name"] ?? "Usuário";
 
 // Dicionário de respostas com palavras-chave
 $respostas_keywords = [
-    implode(",", ["senha", "recuperar", "esqueci", "alterar", "mudar", "trocar"]) => "Você pode recuperar ou alterar sua senha clicando em 'Esqueci minha senha' na página de login do Moodle e seguindo as instruções enviadas para seu e-mail.",
-    implode(",", ["acessar", "entrar", "login", "logar"]) => "Para acessar o Moodle, acesse o site da sua instituição e faça login com seu usuário e senha. Caso tenha esquecido sua senha, use a opção 'Esqueci minha senha'.",
-    implode(",", ["moodle", "plataforma", "sistema"]) => "O Moodle é uma plataforma de ensino à distância usada para cursos online. Ele permite acesso a materiais, atividades e avaliações de forma digital.",
-    implode(",", ["atividade", "enviar", "submeter", "trabalho", "tarefa"]) => "No Moodle, vá até a disciplina desejada, encontre a atividade, clique nela e siga as instruções para enviar seu arquivo ou resposta.",
-    implode(",", ["professores", "professor", "ver", "visualizar", "atividades"]) => "Sim! Seus professores podem visualizar suas atividades enviadas e fornecer feedback e notas através do Moodle.",
-    implode(",", ["contato", "contatar", "professor", "professores", "mensagem"]) => "Você pode entrar em contato pelo fórum da disciplina, pelo sistema de mensagens do Moodle ou pelo e-mail institucional, se disponível.",
-    implode(",", ["problema", "erro", "não enviada", "falha"]) => "Se houver problemas no envio, tente novamente. Se o erro persistir, entre em contato com seu professor ou suporte técnico do Moodle da sua instituição.",
-    implode(",", ["aplicativo", "app", "celular", "mobile", "smartphone"]) => "Sim! O Moodle possui um aplicativo oficial disponível para Android e iOS. Você pode baixá-lo na Play Store ou App Store e acessar seus cursos pelo celular.",
-    implode(",", ["notas", "nota", "avaliação", "pontuação", "desempenho"]) => "No Moodle, acesse a disciplina e clique na opção 'Notas' para visualizar seu desempenho nas atividades e avaliações realizadas.",
-    implode(",", ["nota errada", "erro nota", "corrigir nota", "problema nota"]) => "Se houver algum erro em sua nota, entre em contato com seu professor para verificar o problema e solicitar uma correção, se necessário."
+    implode(",", ["senha", "recuperar", "esqueci", "alterar", "mudar", "trocar"]) => "Você pode recuperar ou alterar sua senha clicando em 'Esqueci minha senha' na página de login do Moodle e seguindo as instruções enviadas para seu e-mail. Te ajudo com mais alguma coisa?",
+    implode(",", ["acessar", "entrar", "login", "logar"]) => "Para acessar o Moodle, acesse o site da sua instituição e faça login com seu usuário e senha. Caso tenha esquecido sua senha, use a opção 'Esqueci minha senha'. Te ajudo com mais alguma coisa?",
+    implode(",", ["moodle", "plataforma", "sistema"]) => "O Moodle é uma plataforma de ensino à distância usada para cursos online. Ele permite acesso a materiais, atividades e avaliações de forma digital. Te ajudo com mais alguma coisa?",
+    implode(",", ["atividade", "enviar", "submeter", "trabalho", "tarefa"]) => "No Moodle, vá até a disciplina desejada, encontre a atividade, clique nela e siga as instruções para enviar seu arquivo ou resposta. Te ajudo com mais alguma coisa? ",
+    implode(",", ["professores", "professor", "ver", "visualizar", "atividades"]) => "Sim! Seus professores podem visualizar suas atividades enviadas e fornecer feedback e notas através do Moodle. Te ajudo com mais alguma coisa?",
+    implode(",", ["contato", "contatar", "professor", "professores", "mensagem"]) => "Você pode entrar em contato pelo fórum da disciplina, pelo sistema de mensagens do Moodle ou pelo e-mail institucional, se disponível. Te ajudo com mais alguma coisa? ",
+    implode(",", ["problema", "erro", "não enviada", "falha"]) => "Se houver problemas no envio, tente novamente. Se o erro persistir, entre em contato com seu professor ou suporte técnico do Moodle da sua instituição. Te ajudo com mais alguma coisa? ",
+    implode(",", ["aplicativo", "app", "celular", "mobile", "smartphone"]) => "Sim! O Moodle possui um aplicativo oficial disponível para Android e iOS. Você pode baixá-lo na Play Store ou App Store e acessar seus cursos pelo celular. Te ajudo com mais alguma coisa? ",
+    implode(",", ["notas", "nota", "avaliação", "pontuação", "desempenho"]) => "No Moodle, acesse a disciplina e clique na opção 'Notas' para visualizar seu desempenho nas atividades e avaliações realizadas. Te ajudo com mais alguma coisa? ",
+    implode(",", ["nota errada", "erro nota", "corrigir nota", "problema nota"]) => "Se houver algum erro em sua nota, entre em contato com seu professor para verificar o problema e solicitar uma correção, se necessário. Te ajudo com mais alguma coisa? "
 ];
 
 // Buscar resposta baseada em palavras-chave
@@ -60,8 +60,19 @@ foreach ($respostas_keywords as $keywords => $resp) {
 
 // Se nenhuma palavra-chave foi encontrada, usar resposta padrão
 if ($resposta === null) {
-    $resposta = "$user_name, hmm... Não tenho certeza, mas posso tentar ajudar! Você pode reformular sua pergunta?";
+    $_SESSION['erro_count']++;
+
+    if ($_SESSION['erro_count'] == 1) {
+        $resposta = "$user_name, desculpe, reformule sua pergunta, por favor!";
+    } elseif ($_SESSION['erro_count'] == 2) {
+        $resposta = "$user_name, não estou entendendo, por gentileza, reformular sua pergunta!";
+    } else {
+        $resposta = "$user_name, sinto muito, não consegui te entender. Encerrando o chat!";
+        session_unset();
+        session_destroy();
+    }
 }
+
 
 // Atraso proposital para simular comportamento humano
 usleep(rand(2000000, 4000000)); // Entre 2 e 4 segundos
