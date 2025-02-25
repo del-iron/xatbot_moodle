@@ -11,25 +11,33 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #0073aa;
+            background: linear-gradient(135deg, #0073aa, #005f8a);
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            font-size: 24px;
+            font-size: 26px;
             cursor: pointer;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        #chat-button:hover {
+            transform: scale(1.1);
         }
 
         #chat-container {
             position: fixed;
             bottom: 80px;
             right: 20px;
-            width: 320px;
+            width: 350px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -39,7 +47,7 @@
         #chat-header {
             background: #0073aa;
             color: white;
-            padding: 10px;
+            padding: 12px;
             display: flex;
             align-items: center;
             font-weight: bold;
@@ -52,15 +60,10 @@
         }
 
         #chat-header img {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             margin-right: 10px;
-        }
-
-        #chat-title {
-            display: flex;
-            flex-direction: column;
         }
 
         #chat-status {
@@ -72,10 +75,10 @@
             background: white;
             border: 2px solid #0073aa;
             color: #0073aa;
-            font-size: 12px;
+            font-size: 14px;
             cursor: pointer;
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -84,8 +87,8 @@
         }
 
         #chat-messages {
-            padding: 10px;
-            height: 250px;
+            padding: 12px;
+            height: 280px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -94,8 +97,8 @@
         .message {
             display: flex;
             align-items: center;
-            margin: 5px 0;
-            padding: 8px;
+            margin: 6px 0;
+            padding: 10px;
             border-radius: 15px;
             max-width: 80%;
         }
@@ -115,8 +118,8 @@
         }
 
         .bot img {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             margin-right: 8px;
         }
@@ -129,18 +132,19 @@
 
         #user-input {
             flex: 1;
-            padding: 5px;
+            padding: 6px;
             border: 1px solid #ccc;
-            border-radius: 3px;
+            border-radius: 5px;
         }
 
         #send-button {
             background: #0073aa;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 12px;
             margin-left: 5px;
             cursor: pointer;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -193,7 +197,7 @@
             userInput.value = "";
 
             setTimeout(() => {
-                addMessage("Resposta do bot para: " + message, "bot");
+                addMessage("Toinha está respondendo: " + message, "bot");
             }, 1000);
         }
 
