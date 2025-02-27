@@ -214,19 +214,18 @@
         
         // Enviar mensagem para o backend
         fetch("chatbot.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: "message=" + encodeURIComponent(message)
-        })
-        .then(response => response.text())
-        .then(data => {
-            // Mantemos o indicador de "digitando" por pelo menos 2 segundos
-            // para dar a impressão de que alguém está realmente digitando
-            setTimeout(() => {
-                hideTypingIndicator();
-                displayBotMessageWithTypingEffect(data);
-            }, 2000);
-        });
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "message=" + encodeURIComponent(message)
+})
+.then(response => response.text())
+.then(data => {
+    console.log("Resposta do servidor:", data); // Debug para ver a resposta no console
+    hideTypingIndicator();
+    displayBotMessageWithTypingEffect(data);
+})
+.catch(error => console.error("Erro na requisição:", error));
+
     }
 
     function addMessage(text, type) {
